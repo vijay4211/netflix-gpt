@@ -1,10 +1,10 @@
-import "./index.css";
+import Body from "./components/Body";
 
 function App() {
   return (
-    <>
-      <h1 className="bg-red-500 text-white">Namste EveryThing</h1>
-    </>
+    <Body />
+      
+    
   );
 }
 
