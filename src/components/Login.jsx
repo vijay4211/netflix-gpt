@@ -9,12 +9,11 @@ import {
 } from "firebase/auth";
 
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { USER_AVTAR } from "../utils/constant";
 
 const Login = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isSignInForm, setIsSignInForm] = useState(true);
 
@@ -26,7 +25,6 @@ const Login = () => {
 
   const handleButtonClick = () => {
     const message = checkValidData(email.current.value, password.current.value);
-    // console.log(message);
     setErrorMessage(message);
 
     if (message) return;
@@ -40,13 +38,14 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
+
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL:
-              "https://avatars.githubusercontent.com/u/9113740?s=96&v=4",
+            photoURL: USER_AVTAR,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
+
               dispatch(
                 addUser({
                   uid: uid,
@@ -55,7 +54,6 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               // An error occurred
@@ -76,7 +74,6 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
