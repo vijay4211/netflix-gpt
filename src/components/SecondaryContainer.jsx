@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const SecondaryContainer = () => {
   const movies = useSelector((store) => store.movies);
-  console.log("SecondaryContainer_movies-------", movies);
+  // console.log("SecondaryContainer_movies-------", movies);
 
   return (
     movies.nowPlayingMovies && (
